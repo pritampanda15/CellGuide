@@ -270,7 +270,8 @@ elif menu == "Reports":
             pdf.add_page()
             pdf.set_font("Arial", size=12)
             pdf.cell(200, 10, txt=f"Plot: {plot_file}", ln=True, align="L")
-            pdf.image(plot_path, x=10, y=40, w=180)
+            pdf.image(plot_path, 
+            x=10, y=40, w=180)
 
         # Save the PDF in memory
         pdf_output_path = "CellGuide_Transcriptomic_Report.pdf"
