@@ -4,13 +4,11 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-
-# Dashboard title
-st.set_page_config(page_title="Transcriptomics Dashboard", layout="wide")
-st.title("Transcriptomics Analysis Dashboard")
+import streamlit.components.v1 as components
 
 # Sidebar for navigation
-menu = st.sidebar.radio("Navigation", ["Home", "Upload Data", "Results", "Analysis", "Reports"])
+menu = st.sidebar.radio("Navigation", ["Home", "Upload Data", "Results", "Analysis", "Neo Dashboard", "Reports"])
+
 
 if menu == "Home":
     st.header("Welcome to the Transcriptomics Dashboard")
@@ -70,7 +68,6 @@ elif menu == "Upload Data":
 elif menu == "Results":
     st.header("Results")
     st.write("View results from RNAseq or scRNAseq analysis pipelines here.")
-
     # Dynamically check for results and display plots side by side
     plot_paths = [
         "seurat_outputs/umap_singleR_plot.png",
@@ -179,6 +176,16 @@ elif menu == "Analysis":
             st.image(os.path.join(results_folder, plot_file), caption=plot_file, use_container_width=True)
     else:
         st.warning("No additional plots available.")
+    
+elif menu == "Neo Dashboard":
+    st.header("Neocellomics Dashboard")
+    st.write("""
+        Welcome to the Neocellomics Dashboard! This interactive dashboard provides advanced visualizations for patient profiles, single-cell results, and transcriptomics analysis.
+    """)
+
+    # Embed the Dash app
+    DASH_URL = "http://127.0.0.1:8050"  # Replace with your hosted Dash app URL if deployed remotely
+    st.components.v1.iframe(src=DASH_URL, height=800, scrolling=True)
 
 
 elif menu == "Reports":
@@ -291,3 +298,5 @@ elif menu == "Reports":
         )
     else:
         st.warning("No data available to generate a report.")
+
+
